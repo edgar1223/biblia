@@ -1,6 +1,7 @@
 com\edgar\biblia4\o\repositorio\libroRepositorio.class
 com\edgar\biblia4\o\controllers\libroController.class
 com\edgar\biblia4\o\repositorio\LibroDAO.class
+com\edgar\biblia4\o\CorsConfig.class
 com\edgar\biblia4\o\models\libromodels.class
 com\edgar\biblia4\o\Application.class
 com\edgar\biblia4\o\services\libroService.class

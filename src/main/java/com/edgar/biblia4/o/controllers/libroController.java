@@ -38,15 +38,12 @@ public class libroController {
 	                  .orElse(ResponseEntity.notFound().build());
 	    }
 	    @GetMapping("/capitulo/{bookId}/{chapter}")
-	    public ResponseEntity<libromodels> obtenerCap(
+	    public ResponseEntity<List<libromodels>> obtenerCap(
 	            @PathVariable int bookId,
-	            @PathVariable int chapter) {
+	            @PathVariable int chapter) throws ClassNotFoundException {
 	        
-	    	  Optional<libromodels> versiculo = libroSer.obtenercapitulo(bookId, chapter);
-
-	          return versiculo
-	                  .map(ResponseEntity::ok)
-	                  .orElse(ResponseEntity.notFound().build());
+	    	List<libromodels> versiculo = libroSer.obtenercapitulo(bookId, chapter);
+	          return ResponseEntity.ok(versiculo);
 	    }
 	    @GetMapping("/books/{bookId}/{chapter}/{startVerse}/{endVerse}")
 	    public ResponseEntity<List<libromodels>> obtenerRangoVersiculos(
@@ -59,4 +56,35 @@ public class libroController {
 
 	        return ResponseEntity.ok(versiculos);
 	    }
+	    @GetMapping("/numchapter/{bookId}")
+	    public ResponseEntity<Integer> obteneNumcap(
+	            @PathVariable int bookId
+	            ) throws ClassNotFoundException {
+
+	       int  versiculos = libroSer.obtenerNumeroCapitulos(bookId);
+
+	        return ResponseEntity.ok(versiculos);
+	    }
+	    @GetMapping("/books/rango/{bookId}/{startchapter}/{endchapter}")
+	    public ResponseEntity<List<libromodels>> obtenerRangocapitlos(
+	            @PathVariable int bookId,
+	            @PathVariable int startchapter,
+	            @PathVariable int endchapter
+	            ) throws ClassNotFoundException {
+
+	        List<libromodels> versiculos = libroSer.obtenerRangoCapitulos(bookId, startchapter, endchapter);
+
+	        return ResponseEntity.ok(versiculos);
+	    }
+	    @GetMapping("/book/{bookId}")
+	    public ResponseEntity<List<libromodels>> obtenercapitlos(
+	            @PathVariable int bookId
+	            
+	            ) throws ClassNotFoundException {
+
+	        List<libromodels> versiculos = libroSer.obtenerCapitulo(bookId);
+
+	        return ResponseEntity.ok(versiculos);
+	    }
+	    
 }

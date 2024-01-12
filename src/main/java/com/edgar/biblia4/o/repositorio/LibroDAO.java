@@ -56,4 +56,140 @@ public class LibroDAO {
 
         return versiculos;
     }
+    
+    public List<libromodels> obtenercap(int bookId, int chapter) throws ClassNotFoundException {
+        List<libromodels> versiculos = new ArrayList<>();
+
+        try (Connection connection = DriverManager.getConnection(DB_URL, DB_USER, DB_PASSWORD)) {
+            String query = "SELECT * FROM verses WHERE book_id = ? AND chapter = ? ";
+            
+            try (PreparedStatement statement = connection.prepareStatement(query)) {
+                statement.setInt(1, bookId);
+                statement.setInt(2, chapter);
+               
+
+                try (ResultSet resultSet = statement.executeQuery()) {
+                    while (resultSet.next()) {
+                        int resultBookId = resultSet.getInt("book_id");
+                        int resultChapter = resultSet.getInt("chapter");
+                        int resultVerse = resultSet.getInt("verse");
+                        String resultText = resultSet.getString("text");
+
+                        libromodels versiculo = new libromodels(resultBookId, resultChapter, resultVerse, resultText);
+                        versiculos.add(versiculo);
+                    }
+                }
+            }
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+
+        return versiculos;
+    }
+    public int obtenerNumeroCapitulos(int bookId) throws ClassNotFoundException {
+        int numeroCapitulos = 0;
+
+        try (Connection connection = DriverManager.getConnection(DB_URL, DB_USER, DB_PASSWORD)) {
+            String query = "SELECT MAX(chapter) as numeroCapitulos FROM verses WHERE book_id = ?";
+            
+            try (PreparedStatement statement = connection.prepareStatement(query)) {
+                statement.setInt(1, bookId);
+
+                try (ResultSet resultSet = statement.executeQuery()) {
+                    if (resultSet.next()) {
+                        numeroCapitulos = resultSet.getInt("numeroCapitulos");
+                    }
+                }
+            }
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+
+        return numeroCapitulos;
+    }
+    public List<libromodels> obtenerRangocapitulos(int bookId, int starchapter, int endchapter) throws ClassNotFoundException {
+        List<libromodels> versiculos = new ArrayList<>();
+
+        try (Connection connection = DriverManager.getConnection(DB_URL, DB_USER, DB_PASSWORD)) {
+            String query = "SELECT * FROM verses WHERE book_id = ? AND chapter BETWEEN ? AND ? ";
+            
+            try (PreparedStatement statement = connection.prepareStatement(query)) {
+                statement.setInt(1, bookId);
+                statement.setInt(2, starchapter);
+                statement.setInt(3, endchapter);
+
+                try (ResultSet resultSet = statement.executeQuery()) {
+                    while (resultSet.next()) {
+                        int resultBookId = resultSet.getInt("book_id");
+                        int resultChapter = resultSet.getInt("chapter");
+                        int resultVerse = resultSet.getInt("verse");
+                        String resultText = resultSet.getString("text");
+
+                        libromodels versiculo = new libromodels(resultBookId, resultChapter, resultVerse, resultText);
+                        versiculos.add(versiculo);
+                    }
+                }
+            }
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+
+        return versiculos;
+    }
+    public List<libromodels> obtenerapitulo(int bookId) throws ClassNotFoundException {
+        List<libromodels> versiculos = new ArrayList<>();
+
+        try (Connection connection = DriverManager.getConnection(DB_URL, DB_USER, DB_PASSWORD)) {
+            String query = "SELECT * FROM verses WHERE book_id = ? ";
+            
+            try (PreparedStatement statement = connection.prepareStatement(query)) {
+                statement.setInt(1, bookId);
+                
+
+                try (ResultSet resultSet = statement.executeQuery()) {
+                    while (resultSet.next()) {
+                        int resultBookId = resultSet.getInt("book_id");
+                        int resultChapter = resultSet.getInt("chapter");
+                        int resultVerse = resultSet.getInt("verse");
+                        String resultText = resultSet.getString("text");
+
+                        libromodels versiculo = new libromodels(resultBookId, resultChapter, resultVerse, resultText);
+                        versiculos.add(versiculo);
+                    }
+                }
+            }
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+
+        return versiculos;
+    }
+    public List<libromodels> buscarVersiculosConPalabra(String palabra) throws ClassNotFoundException {
+        List<libromodels> versiculos = new ArrayList<>();
+
+        try (Connection connection = DriverManager.getConnection(DB_URL, DB_USER, DB_PASSWORD)) {
+            String query = "SELECT * FROM verses WHERE book_id = ? AND text LIKE ?";
+            
+            try (PreparedStatement statement = connection.prepareStatement(query)) {
+                statement.setString(1, "%" + palabra + "%"); // El símbolo '%' se usa para buscar coincidencias parciales
+
+                try (ResultSet resultSet = statement.executeQuery()) {
+                    while (resultSet.next()) {
+                        int resultBookId = resultSet.getInt("book_id");
+                        int resultChapter = resultSet.getInt("chapter");
+                        int resultVerse = resultSet.getInt("verse");
+                        String resultText = resultSet.getString("text");
+
+                        libromodels versiculo = new libromodels(resultBookId, resultChapter, resultVerse, resultText);
+                        versiculos.add(versiculo);
+                    }
+                }
+            }
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+
+        return versiculos;
+    }
+
 }

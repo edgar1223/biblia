@@ -25,10 +25,19 @@ public class libroService {
 	  public Optional<libromodels> obtenerVersiculo(int bookId, int chapter, int verse) {
 		    return libroRepo.findByBookIdAndChapterAndVerse(bookId, chapter, verse);
 		}
-	  public Optional<libromodels> obtenercapitulo(int bookId, int chapter) {
-		    return libroRepo.findByBookIdAndChapter(bookId, chapter);
+	  public List<libromodels> obtenercapitulo(int bookId, int chapter) throws ClassNotFoundException{
+		    return libroDAO.obtenercap(bookId, chapter);
 		}
 	  public List<libromodels> obtenerRangoVersiculos(int bookId, int chapter, int startVerse, int endVerse) throws ClassNotFoundException {
 	        return libroDAO.obtenerRangoVersiculos(bookId, chapter, startVerse, endVerse);
+	    }
+	  public int obtenerNumeroCapitulos(int bookId) throws ClassNotFoundException {
+	        return libroDAO.obtenerNumeroCapitulos(bookId);
+	    }
+	  public List<libromodels> obtenerRangoCapitulos(int bookId, int starchapter, int endchapter) throws ClassNotFoundException {
+	        return libroDAO.obtenerRangocapitulos(bookId,starchapter,endchapter);
+	    }
+	  public List<libromodels> obtenerCapitulo(int bookId) throws ClassNotFoundException {
+	        return libroDAO.obtenerapitulo(bookId);
 	    }
 }
