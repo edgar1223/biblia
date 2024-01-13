@@ -168,7 +168,7 @@ public class LibroDAO {
         List<libromodels> versiculos = new ArrayList<>();
 
         try (Connection connection = DriverManager.getConnection(DB_URL, DB_USER, DB_PASSWORD)) {
-            String query = "SELECT * FROM verses WHERE book_id = ? AND text LIKE ?";
+            String query = "SELECT * FROM verses WHERE  text LIKE ?";
             
             try (PreparedStatement statement = connection.prepareStatement(query)) {
                 statement.setString(1, "%" + palabra + "%"); // El símbolo '%' se usa para buscar coincidencias parciales

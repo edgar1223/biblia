@@ -87,4 +87,14 @@ public class libroController {
 	        return ResponseEntity.ok(versiculos);
 	    }
 	    
+	    @GetMapping("/book/buscar/{frase}")
+	    public ResponseEntity<List<libromodels>> buscarVersiculosConPalabra(
+	            @PathVariable String frase
+	            
+	            ) throws ClassNotFoundException {
+
+	        List<libromodels> versiculos = libroSer.buscarVersiculosConPalabra(frase);
+
+	        return ResponseEntity.ok(versiculos);
+	    }
 }

@@ -40,4 +40,8 @@ public class libroService {
 	  public List<libromodels> obtenerCapitulo(int bookId) throws ClassNotFoundException {
 	        return libroDAO.obtenerapitulo(bookId);
 	    }
+	  public List<libromodels> buscarVersiculosConPalabra(String frase) throws ClassNotFoundException {
+	        return libroDAO.buscarVersiculosConPalabra(frase);
+	    }
+	  
 }
