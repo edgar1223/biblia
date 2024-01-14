@@ -164,14 +164,16 @@ public class LibroDAO {
 
         return versiculos;
     }
-    public List<libromodels> buscarVersiculosConPalabra(String palabra) throws ClassNotFoundException {
+    public List<libromodels> buscarVersiculosConPalabra(String palabra, int resultadosPorPagina, int paginaActual) throws ClassNotFoundException {
         List<libromodels> versiculos = new ArrayList<>();
 
         try (Connection connection = DriverManager.getConnection(DB_URL, DB_USER, DB_PASSWORD)) {
-            String query = "SELECT * FROM verses WHERE  text LIKE ?";
+            String query = "SELECT * FROM verses WHERE text LIKE ? LIMIT ? OFFSET ?";
             
             try (PreparedStatement statement = connection.prepareStatement(query)) {
-                statement.setString(1, "%" + palabra + "%"); // El símbolo '%' se usa para buscar coincidencias parciales
+                statement.setString(1, "%" + palabra + "%");
+                statement.setInt(2, resultadosPorPagina);  // Cantidad de resultados por página
+                statement.setInt(3, (paginaActual - 1) * resultadosPorPagina);  // Cálculo del offset
 
                 try (ResultSet resultSet = statement.executeQuery()) {
                     while (resultSet.next()) {
