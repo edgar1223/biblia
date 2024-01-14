@@ -1,4 +1,4 @@
 -------------------------------------------------------------------------------
 Test set: com.edgar.biblia4.o.ApplicationTests
 -------------------------------------------------------------------------------
-Tests run: 1, Failures: 0, Errors: 0, Skipped: 0, Time elapsed: 8.563 s -- in com.edgar.biblia4.o.ApplicationTests
+Tests run: 1, Failures: 0, Errors: 0, Skipped: 0, Time elapsed: 8.128 s -- in com.edgar.biblia4.o.ApplicationTests
